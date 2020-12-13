@@ -7,6 +7,7 @@ BUFFER_POOL_SIZE=$(echo "$RAM_GB" | awk '{print int($1*0.65)"G"}')
 LOG_FILE_SIZE=$(echo "$RAM_GB" | awk '{print int($1*0.15)"G"}')
 
 IO_THREADS=$(nproc | awk '{print int($1/2)}')
+SLAVE_THREADS=$(nproc | awk '{print int($1)}')
 
 SUPERUSER="superuser@'127.0.0.1'";
 
@@ -53,7 +54,7 @@ slow_query_log_file=/var/log/mysql/slow.log
 
 log_slave_updates=1
 sync_binlog=1
-#slave_parallel_threads=20
+slave_parallel_threads=$SLAVE_THREADS
 
 expire_logs_days=7
 
