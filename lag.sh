@@ -79,3 +79,4 @@ WantedBy=sockets.target
 EOF
 
 sudo systemctl daemon-reload
+sudo systemctl enable mysqlchk.socket
