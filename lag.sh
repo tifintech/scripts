@@ -46,6 +46,8 @@ http_200 "OK $SECONDS_BEHIND_MASTER"
 fi
 EOF
 
+sudo chmod +x /usr/local/bin/lag.sh
+
 echo "Create lag service"
 sudo bash -c 'cat > /etc/systemd/system/mysqlchk@.service' << EOF
 [Unit]
