@@ -10,7 +10,6 @@ MAX_SPARE_SERVERS=$START_SERVERS
 
 echo "Install PHP"
 sudo apt -y update
-sudo apt -y upgrade
 sudo apt -q -y install nginx php-{common,cli,fpm,redis,mysql,bcmath,bz2,curl,gd,intl,json,mbstring,readline,xml,zip} cabextract
 
 echo "Install composer"
