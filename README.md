@@ -11,3 +11,7 @@ curl -s https://raw.githubusercontent.com/tifintech/scripts/master/redis.sh | ba
 
 ### Run MariaDB setup
 curl -s https://raw.githubusercontent.com/tifintech/scripts/master/mariadb.sh | bash -s
+
+### Run HAProxy setup
+
+curl -s https://raw.githubusercontent.com/tifintech/scripts/master/haproxy.sh | bash -s
