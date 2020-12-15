@@ -1,6 +1,5 @@
 echo "Install Redis"
 sudo apt -y update
-sudo apt -y upgrade
 sudo apt install -y redis-server
 
 echo "Update config"
