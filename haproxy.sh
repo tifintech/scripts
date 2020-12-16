@@ -68,3 +68,5 @@ if [[ "$PROXY_TYPE" = "http" ]]; then
 sudo bash -c 'cat > /etc/haproxy/haproxy.cfg' << EOF
 EOF
 fi
+
+sudo service haproxy reload
