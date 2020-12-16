@@ -48,7 +48,7 @@ defaults
 EOF
 
 if [[ "$PROXY_TYPE" = "sql" ]]; then 
-sudo bash -c 'cat > /etc/haproxy/haproxy.cfg' << EOF
+sudo bash -c 'cat >> /etc/haproxy/haproxy.cfg' << EOF
 listen master
   bind :3306
   mode tcp
@@ -65,7 +65,7 @@ EOF
 fi
 
 if [[ "$PROXY_TYPE" = "http" ]]; then 
-sudo bash -c 'cat > /etc/haproxy/haproxy.cfg' << EOF
+sudo bash -c 'cat >> /etc/haproxy/haproxy.cfg' << EOF
 EOF
 fi
 
