@@ -1,12 +1,12 @@
 PROXY_TYPE=$1
 
 if [[ -z "$PROXY_TYPE" ]]; then
-   printf "Proxy missing\n"
+   printf "Proxy type missing\n"
    exit 1
 fi
 
 if [[ ! "$PROXY_TYPE" =~ ^(http|sql)$ ]]; then 
-   printf "Type must be http or sql\n"
+   printf "Proxy type must be http or sql\n"
    exit 1
 fi
 
