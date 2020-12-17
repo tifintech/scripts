@@ -3,7 +3,7 @@ echo "Create lag script"
 sudo bash -c 'cat > /usr/local/bin/lag.sh' << 'EOF'
 #!/bin/bash
 
-DB_USER="haproxy"
+DB_USER="replication_check"
 DB_PASS="password"
 ACCEPTABLE_LAG=5
 
