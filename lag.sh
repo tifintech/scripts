@@ -80,3 +80,4 @@ EOF
 
 sudo systemctl daemon-reload
 sudo systemctl enable mysqlchk.socket
+sudo systemctl start mysqlchk.socket
