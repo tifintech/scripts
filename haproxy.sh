@@ -46,9 +46,11 @@ defaults
       errorfile 504 /etc/haproxy/errors/504.http
      
 listen stats
-      bind *:8404
+      bind :8404
+      mode http
       stats enable
-      stats uri /stats
+      stats hide-version
+      stats uri /haproxy-stats
       stats refresh 10s
         
 EOF
