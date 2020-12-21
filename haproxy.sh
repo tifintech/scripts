@@ -67,11 +67,19 @@ listen slave
       # server slave-1 10.0.0.0:3306 
       
 EOF
+
+echo "Allow private network on ports"
+sudo ufw allow from 10.0.0.0/8 to any port 3306
+sudo ufw allow from 10.0.0.0/8 to any port 3307
 fi
 
 if [[ "$PROXY_TYPE" = "http" ]]; then 
 sudo bash -c 'cat >> /etc/haproxy/haproxy.cfg' << EOF
 EOF
+
+echo "Allow http and https"
+sudo ufw allow proto tcp to 0.0.0.0/0 port 80
+sudo ufw allow proto tcp to 0.0.0.0/0 port 443
 fi
 
 sudo service haproxy reload
