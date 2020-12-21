@@ -54,7 +54,7 @@ listen master
       mode tcp
       option mysql-check user mysql_check
       default-server check
-      # server master 10.0.0.0:3306 check
+      # server master 10.0.0.0:3306
         
         
 listen slave
@@ -75,6 +75,14 @@ fi
 
 if [[ "$PROXY_TYPE" = "http" ]]; then 
 sudo bash -c 'cat >> /etc/haproxy/haproxy.cfg' << EOF
+listen tcp
+      bind :80
+      mode tcp
+      balance leastconn
+      option httpchk /index.php
+      default-server check
+      # server test 94.237.52.12:80
+      
 EOF
 
 echo "Allow http and https"
