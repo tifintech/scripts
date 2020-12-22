@@ -83,7 +83,7 @@ fi
 
 if [[ "$PROXY_TYPE" = "http" ]]; then 
 sudo bash -c 'cat >> /etc/haproxy/haproxy.cfg' << EOF
-listen tcp
+listen http
       bind :80
       mode http
       balance leastconn
