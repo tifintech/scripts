@@ -85,9 +85,10 @@ if [[ "$PROXY_TYPE" = "http" ]]; then
 sudo bash -c 'cat >> /etc/haproxy/haproxy.cfg' << EOF
 listen tcp
       bind :80
-      mode tcp
+      mode http
       balance leastconn
       option httpchk /index.php
+      option forwardfor
       default-server check
       # server test 94.237.52.12:80
       
