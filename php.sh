@@ -13,7 +13,11 @@ sudo apt -y update
 sudo apt -q -y install nginx php-{common,cli,fpm,redis,mysql,bcmath,bz2,curl,gd,intl,json,mbstring,readline,xml,zip} cabextract
 
 echo "Install composer"
-curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+rm composer-setup.php
+
+composer self-update --2
 
 echo "Create Delphi param"
 sudo openssl dhparam -out /etc/nginx/dhparam.pem 2048
