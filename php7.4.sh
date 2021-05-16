@@ -185,6 +185,39 @@ location ~ \.php$ {
 }
 EOF
 
+sudo bash -c 'cat > /etc/nginx/snippets/laravel.conf' << 'EOF'
+index index.php;
+
+charset utf-8;
+
+# Strip trailing slash
+rewrite ^/(.*)/$ /$1 permanent;
+
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+
+location = /favicon.ico { access_log off; log_not_found off; }
+location = /robots.txt  { access_log off; log_not_found off; }
+
+error_page 404 /index.php;
+
+location ~ \.php$ {
+    include /etc/nginx/fastcgi_params;
+
+    try_files $uri /index.php;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_pass 127.0.0.1:9000;
+    fastcgi_index index.php;
+    fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+    fastcgi_connect_timeout 300s;
+    fastcgi_read_timeout 600s;
+    proxy_read_timeout 600s;
+    proxy_send_timeout 600s;
+    client_max_body_size 120M;
+}
+EOF
+
 sudo bash -c 'cat > /etc/nginx/snippets/ssl.conf' << 'EOF'
 ssl_dhparam /etc/nginx/dhparam.pem;
 
