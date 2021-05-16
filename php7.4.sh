@@ -133,8 +133,7 @@ server {
     # Php-fpm status page
     location ~ ^/(status|ping)$ {
         access_log off;
-        allow 127.0.0.1;
-        deny all;
+        allow all;
         fastcgi_pass 127.0.0.1:9000;
         fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
         include /etc/nginx/fastcgi_params;
