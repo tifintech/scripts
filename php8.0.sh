@@ -14,7 +14,7 @@ sudo apt -y upgrade
 sudo apt install software-properties-common
 sudo add-apt-repository ppa:ondrej/php
 
-sudo apt -q -y install nginx php8.0-{common,cli,fpm,redis,mysql,bcmath,bz2,curl,gd,intl,json,mbstring,readline,xml,zip} cabextract
+sudo apt -q -y install nginx php8.0-{common,cli,fpm,redis,mysql,bcmath,bz2,curl,gd,intl,mbstring,readline,xml,zip} cabextract
 
 echo "Install composer"
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
