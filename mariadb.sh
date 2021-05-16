@@ -7,6 +7,7 @@ BUFFER_POOL_SIZE=$(echo "$RAM_GB" | awk '{print int($1*0.65)"G"}')
 LOG_FILE_SIZE=$(echo "$RAM_GB" | awk '{print int($1*0.15)"G"}')
 
 IO_THREADS=$(nproc | awk '{print int($1/2)}')
+SLAVE_THREADS=$(nproc | awk '{print int($1)}')
 
 SUPERUSER="superuser@'127.0.0.1'";
 
@@ -27,11 +28,9 @@ fi
 
 echo "Install MariaDB 10.4"
 sudo apt -y install software-properties-common
-
 sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-
 sudo add-apt-repository "deb [arch=amd64,arm64,ppc64el] http://mariadb.mirror.liquidtelecom.com/repo/10.4/ubuntu $(lsb_release -cs) main"
-
+sudo apt -y update
 sudo apt -y install mariadb-server mariadb-client
 
 echo "Config MariaDB"
@@ -53,7 +52,7 @@ slow_query_log_file=/var/log/mysql/slow.log
 
 log_slave_updates=1
 sync_binlog=1
-#slave_parallel_threads=20
+slave_parallel_threads=$SLAVE_THREADS
 
 expire_logs_days=7
 
