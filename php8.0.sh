@@ -255,7 +255,7 @@ sudo bash -c 'cat > /etc/php/8.0/fpm/pool.d/www.conf' << EOF
 user = $SYS_USER
 group = $SYS_USER
 
-listen = 127.0.0.1:9000
+listen = 9000
 listen.backlog = 65536
 
 listen.owner = www-data
