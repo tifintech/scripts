@@ -26,3 +26,8 @@ curl -s https://raw.githubusercontent.com/tifintech/scripts/master/haproxy.sh | 
 ### Run KVM Host prep
 
 curl -s https://raw.githubusercontent.com/tifintech/scripts/master/kvm_host_prep.sh | bash -s
+
+
+### Run KVM add guest
+
+curl -s https://raw.githubusercontent.com/tifintech/scripts/master/kvm_host_add_guest.sh | bash -s
