@@ -22,3 +22,7 @@ curl -s https://raw.githubusercontent.com/tifintech/scripts/master/lag.sh | bash
 ### Run HAProxy setup
 
 curl -s https://raw.githubusercontent.com/tifintech/scripts/master/haproxy.sh | bash -s
+
+### Run KVM Host prep
+
+curl -s https://raw.githubusercontent.com/tifintech/scripts/master/kvm_host_prep.sh | bash -s
