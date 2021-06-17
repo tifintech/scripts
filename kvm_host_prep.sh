@@ -1,7 +1,7 @@
 echo "Install, update & upgrade"
 sudo apt -y -q update
 sudo apt -y -q upgrade
-sudo apt -y -q install ufw fail2ban htop net-tools qemu-kvm libvirt-bin qemu-utils genisoimage virtinst cloud-image-utils
+sudo apt -y -q install ufw fail2ban htop net-tools qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
 
 echo "Increase file limits"
 LIMITS=$(cat << 'EOF'
