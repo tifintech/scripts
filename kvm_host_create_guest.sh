@@ -116,7 +116,7 @@ sudo cloud-localds -v --network-config=/tmp/network.yaml $GUEST_CI_IMAGE_PATH /t
 rm -f /tmp/*.yaml
 
 echo "Create VM"
-sudo virt-install --connect qemu:///system --virt-type kvm --name $GUEST_NAME --cpu host --ram $RAM --vcpus=$CORES --os-type linux --os-variant ubuntu18.04 \
+sudo virt-install --connect qemu:///system --virt-type kvm --name $GUEST_NAME --cpu host --ram $RAM --vcpus=$CORE_COUNT --os-type linux --os-variant ubuntu18.04 \
 --disk path=${GUEST_IMAGE_RAW_PATH},format=raw,io=native,cache=none \
 --disk path=${GUEST_CI_IMAGE_PATH},format=raw --import \
 --network bridge=br0,model=virtio,mac=52:54:00:b2:cb:b0 \
