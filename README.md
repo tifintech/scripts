@@ -30,4 +30,4 @@ curl -s https://raw.githubusercontent.com/tifintech/scripts/master/kvm_host_prep
 
 ### Run KVM add guest
 
-curl -s https://raw.githubusercontent.com/tifintech/scripts/master/kvm_host_add_guest.sh | bash -s
+curl -s https://raw.githubusercontent.com/tifintech/scripts/master/kvm_host_create_guest.sh | bash -s
