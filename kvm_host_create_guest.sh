@@ -80,14 +80,14 @@ EOF
 cat << EOF > /tmp/network.yaml
 version: 2
 ethernets:
-  ens3:
+  enp1s0:
     dhcp4: no
     addresses:
       - $PUBLIC_IP
     gateway4: $GATEWAY
     nameservers:
       addresses: [8.8.8.8, 8.8.4.4]
-  ens4:
+  enp2s0:
     dhcp4: no
     addresses:
       - $PRIVATE_IP
