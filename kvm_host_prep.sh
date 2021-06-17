@@ -85,3 +85,7 @@ EOF
 echo "Config firewall"
 sudo ufw allow proto tcp to 0.0.0.0/0 port 22
 sudo ufw --force enable
+
+echo "Setup bridge for VMS"
+sudo virsh net-destroy default
+sudo virsh net-undefine default
