@@ -72,6 +72,11 @@ sudo qemu-img convert $GUEST_IMAGE_GCOW_PATH $GUEST_IMAGE_RAW_PATH
 sudo rm -f $GUEST_IMAGE_GCOW_PATH
 
 echo "Create cloud init files"
+
+cat << EOF > /tmp/meta.yaml
+local-hostname: $GUEST_NAME
+EOF
+
 cat << EOF > /tmp/network.yaml
 version: 2
 ethernets:
