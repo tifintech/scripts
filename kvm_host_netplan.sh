@@ -18,7 +18,7 @@ if [[ -z "$PRIVATE_IP" ]]; then
 fi
 
 echo "Configure bridge"
-sudo bash -c 'cat > /etc/netplan/01-netcfg.yaml'
+sudo bash -c 'cat > /etc/netplan/01-netcfg.yaml' << EOF
 network:
   version: 2
   renderer: networkd
