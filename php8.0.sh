@@ -287,7 +287,7 @@ upload_max_filesize = 128M
 EOF
 
 sudo rm -f -R /var/www/html
-sudo mkdir -p /var/www/repo
+sudo mkdir -p /var/www
 sudo chown -R $SYS_USER:$SYS_USER /var/www
 
 echo "Allow http and https"
