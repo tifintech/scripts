@@ -81,3 +81,6 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl enable mysqlchk.socket
 sudo systemctl start mysqlchk.socket
+
+echo "Allow private network access"
+sudo ufw allow from 10.0.0.0/8 to any port 9876
