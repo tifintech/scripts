@@ -56,9 +56,10 @@ After=network.target systemfoo.socket
 Requires=mysqlchk.socket
 
 [Service]
-Type=oneshot
+Type=simple
+RemainAfterExit=yes
 ExecStart=/usr/local/bin/lag.sh
-TimeoutStopSec=5
+Restart=always
 StandardInput=socket
 
 [Install]
