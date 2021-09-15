@@ -9,6 +9,10 @@ curl -s https://raw.githubusercontent.com/tifintech/scripts/main/php7.4.sh | bas
 ### Run PHP 8.0 setup
 curl -s https://raw.githubusercontent.com/tifintech/scripts/main/php8.0.sh | bash -s
 
+### Run HAProxy Http setup
+
+curl -s https://raw.githubusercontent.com/tifintech/scripts/main/haproxy_http.sh | bash -s
+
 ### Run Redis script
 curl -s https://raw.githubusercontent.com/tifintech/scripts/main/redis.sh | bash -s
 
@@ -19,9 +23,11 @@ curl -s https://raw.githubusercontent.com/tifintech/scripts/main/mariadb.sh | ba
 
 curl -s https://raw.githubusercontent.com/tifintech/scripts/main/lag.sh | bash -s
 
-### Run HAProxy setup
+### Run HAProxy SQL setup
 
-curl -s https://raw.githubusercontent.com/tifintech/scripts/main/haproxy.sh | bash -s
+curl -s https://raw.githubusercontent.com/tifintech/scripts/main/haproxy_sql.sh | bash -s
+
+
 
 ### Run KVM Host prep
 

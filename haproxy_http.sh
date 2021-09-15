@@ -1,15 +1,3 @@
-PROXY_TYPE=$1
-
-if [[ -z "$PROXY_TYPE" ]]; then
-   printf "Proxy type missing\n"
-   exit 1
-fi
-
-if [[ ! "$PROXY_TYPE" =~ ^(http|sql)$ ]]; then 
-   printf "Proxy type must be http or sql\n"
-   exit 1
-fi
-
 echo "Install HAProxy 2.1"
 sudo apt -y install software-properties-common
 sudo add-apt-repository ppa:vbernat/haproxy-2.1 --yes
@@ -52,37 +40,7 @@ listen stats
       stats hide-version
       stats uri /haproxy-stats
       stats refresh 10s
-        
-EOF
 
-if [[ "$PROXY_TYPE" = "sql" ]]; then 
-sudo bash -c 'cat >> /etc/haproxy/haproxy.cfg' << EOF
-listen master
-      bind :3306
-      mode tcp
-      option mysql-check user mysql_check
-      default-server check
-      # server master 10.0.0.0:3306
-        
-        
-listen slave
-      bind :3307
-      mode tcp
-      option mysql-check user mysql_check
-      option httpchk
-      balance roundrobin
-      default-server check port 9876 on-marked-down shutdown-sessions
-      # server slave-1 10.0.0.0:3306 
-      
-EOF
-
-echo "Allow private network on ports"
-sudo ufw allow from 10.0.0.0/8 to any port 3306
-sudo ufw allow from 10.0.0.0/8 to any port 3307
-fi
-
-if [[ "$PROXY_TYPE" = "http" ]]; then 
-sudo bash -c 'cat >> /etc/haproxy/haproxy.cfg' << EOF
 listen http
       bind :80
       mode http
@@ -91,12 +49,10 @@ listen http
       option forwardfor
       default-server check
       # server test 94.237.52.12:80
-      
 EOF
 
 echo "Allow http and https"
 sudo ufw allow proto tcp to 0.0.0.0/0 port 80
 sudo ufw allow proto tcp to 0.0.0.0/0 port 443
-fi
 
 sudo service haproxy reload
