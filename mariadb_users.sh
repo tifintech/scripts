@@ -14,11 +14,10 @@ if [[ -z "$PASSWORD" ]]; then
    exit 1
 fi
 
-echo "$DATABASE_USER"
-echo "$NETWORK_REPLICATION_USER"
-echo "$LOCAL_REPLICATION_USER"
-
-exit
+if [[ ${#PASSWORD} -lt 10 ]]; then
+   printf "Password too short\n"
+   exit 1
+fi
 
 echo "Starting MariaDB"
 sudo mysql << EOF
