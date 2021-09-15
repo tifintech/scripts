@@ -3,7 +3,7 @@ sudo apt -y -q update
 sudo apt -y -q install ufw fail2ban htop
 
 echo "Increase file limits"
-LIMITS=$(cat << 'EOF'
+LIMITS=$(cat << EOF
 *           hard   nofile   1048576
 *           soft   nofile   1048576
 $(whoami)   hard   nofile   1048576
