@@ -1,5 +1,3 @@
-SYS_USER=$USER
-
 echo "Install, update & upgrade"
 sudo apt -y -q update
 sudo apt -y -q install ufw fail2ban htop
@@ -8,11 +6,11 @@ echo "Increase file limits"
 LIMITS=$(cat << 'EOF'
 *           hard   nofile   1048576
 *           soft   nofile   1048576
-$SYS_USER   hard   nofile   1048576
-$SYS_USER   soft   nofile   1048576
+$(whoami)   hard   nofile   1048576
+$(whoami)   soft   nofile   1048576
 EOF
 )
-grep -qF "$SYS_USER" /etc/security/limits.conf || echo "$LIMITS" | sudo tee -a /etc/security/limits.conf
+grep -qF "$(whoami)" /etc/security/limits.conf || echo "$LIMITS" | sudo tee -a /etc/security/limits.conf
 
 echo "Add sysctl tweaks"
 sudo bash -c 'cat > /etc/sysctl.d/custom.conf' << EOF
