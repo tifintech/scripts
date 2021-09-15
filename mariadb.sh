@@ -34,7 +34,7 @@ sudo apt -y update
 sudo apt -y install mariadb-server mariadb-client
 
 echo "Config MariaDB"
-sudo bash -c 'cat > /etc/mysql/mariadb.conf.d/my.cnf' << EOF
+sudo bash -c 'cat > /etc/mysql/mariadb.conf.d/custom.cnf' << EOF
 [mysqld]
 
 server-id=$SERVER_ID
