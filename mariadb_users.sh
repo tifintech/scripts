@@ -4,6 +4,16 @@ DATABASE_USER='$1_user'@'10.%'
 NETWORK_REPLICATION_USER='$1_replication'@'10.%'
 LOCAL_REPLICATION_USER='$1_replication'@'127.0.0.1'
 
+if [[ -z "$APP_NAME" ]]; then
+   printf "App Name missing\n"
+   exit 1
+fi
+
+if [[ -z "$PASSWORD" ]]; then
+   printf "Password missing\n"
+   exit 1
+fi
+
 echo "$DATABASE_USER"
 echo "$NETWORK_REPLICATION_USER"
 echo "$LOCAL_REPLICATION_USER"
