@@ -1,8 +1,8 @@
 APP_NAME=$1
 PASSWORD=$2
-DATABASE_USER='$($APP_NAME)_user'@'10.%'
-NETWORK_REPLICATION_USER='$($APP_NAME)_replication'@'10.%'
-LOCAL_REPLICATION_USER='$($APP_NAME)_replication'@'127.0.0.1'
+DATABASE_USER="'$APP_NAME_user'@'10.%'"
+NETWORK_REPLICATION_USER="'$APP_NAME_replication'@'10.%'"
+LOCAL_REPLICATION_USER="'$APP_NAME_replication'@'127.0.0.1'"
 
 if [[ -z "$APP_NAME" ]]; then
    printf "App Name missing\n"
