@@ -19,6 +19,9 @@ curl -s https://raw.githubusercontent.com/tifintech/scripts/main/redis.sh | bash
 ### Run MariaDB setup
 curl -s https://raw.githubusercontent.com/tifintech/scripts/main/mariadb.sh | bash -s
 
+### Run MariaDB users
+curl -s https://raw.githubusercontent.com/tifintech/scripts/main/mariadb_users.sh | bash -s
+
 ### Run lag check setup
 
 curl -s https://raw.githubusercontent.com/tifintech/scripts/main/lag.sh | bash -s
