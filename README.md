@@ -1,33 +1,42 @@
 # Scripts
 
-### Run base setup
+## Base
 curl -s https://raw.githubusercontent.com/tifintech/scripts/main/base.sh | bash -s
 
-### Run PHP 7.4 setup
+## PHP LEMP
+
+### PHP 7.4
 curl -s https://raw.githubusercontent.com/tifintech/scripts/main/php7.4.sh | bash -s
 
-### Run PHP 8.0 setup
+### PHP 8.0
 curl -s https://raw.githubusercontent.com/tifintech/scripts/main/php8.0.sh | bash -s
+
+## PHP Haproxy
 
 ### Run HAProxy Http setup
 
 curl -s https://raw.githubusercontent.com/tifintech/scripts/main/haproxy_http.sh | bash -s
 
-### Run Redis script
+### Run PHP 8.0 haproxy setup
+curl -s https://raw.githubusercontent.com/tifintech/scripts/main/php8.0_haproxy.sh | bash -s
+
+## Data stores
+
+### Redis
 curl -s https://raw.githubusercontent.com/tifintech/scripts/main/redis.sh | bash -s
 
-### Run MariaDB setup
+### MariaDB
 curl -s https://raw.githubusercontent.com/tifintech/scripts/main/mariadb.sh | bash -s
 
 ### Run lag check setup
 
 curl -s https://raw.githubusercontent.com/tifintech/scripts/main/lag.sh | bash -s
 
-### Run HAProxy SQL setup
+### SQL HAProxy
 
 curl -s https://raw.githubusercontent.com/tifintech/scripts/main/haproxy_sql.sh | bash -s
 
-
+## KVM
 
 ### Run KVM Host prep
 
