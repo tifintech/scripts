@@ -19,26 +19,21 @@ sudo apt -q -y install nginx php8.0-{common,cli,fpm,redis,mysql,bcmath,bz2,curl,
 echo "Install composer"
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 
-echo "Create Delphi param"
-sudo openssl dhparam -out /etc/nginx/dhparam.pem 2048
-
 echo "Add DNS to resolved"
 sudo sed -i 's|#DNS=.*|DNS=8.8.8.8|g' /etc/systemd/resolved.conf
 sudo sed -i 's|#FallbackDNS=.*|FallbackDNS=8.8.4.4|g' /etc/systemd/resolved.conf
 
 echo "Confgure Nginx"
-sudo mkdir /etc/nginx/ssl
-
 sudo sed -i 's|#ULIMIT=.*|ULIMIT="-n 1048576"|g' /etc/default/nginx
 
 sudo mkdir /etc/systemd/system/nginx.service.d
-sudo chown -R $SYS_USER:$SYS_USER /etc/systemd/system/nginx.service.d
+sudo chown -R $(whoami):$(whoami) /etc/systemd/system/nginx.service.d
 printf "[Service]\nExecStartPost=/bin/sleep 0.1\nLimitNOFILE=1048576\n" > /etc/systemd/system/nginx.service.d/override.conf
 
 sudo systemctl daemon-reload
 
 sudo bash -c 'cat > /etc/nginx/nginx.conf' << EOF
-user $SYS_USER;
+user $(whoami);
 worker_processes auto;
 pid /run/nginx.pid;
 include /etc/nginx/modules-enabled/*.conf;
@@ -109,27 +104,6 @@ sudo bash -c 'cat > /etc/nginx/sites-enabled/default' << 'EOF'
 server {
     listen 80 default_server;
 
-    # Allow letsencrypt
-    #location ~ /.well-known {
-    #    root /var/www/repo/public;
-    #    allow all;
-    #}
-
-    # Proxy letsencrypt to ssl server
-    location ~ /.well-known {
-        proxy_pass https://manager.tifintech.com;
-    }
-
-    # Github webhook
-    #location /git_webhook.php {
-    #    root /var/www;
-    #    access_log off;
-    #    allow all;
-    #    fastcgi_pass 127.0.0.1:9000;
-    #    fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
-    #    include /etc/nginx/fastcgi_params;
-    #}
-
     # Php-fpm status page
     location ~ ^/(status|ping)$ {
         access_log off;
@@ -154,97 +128,9 @@ server {
 }
 EOF
 
-sudo bash -c 'cat > /etc/nginx/snippets/slim.conf' << 'EOF'
-index index.php;
-
-charset utf-8;
-
-# Strip trailing slash
-rewrite ^/(.*)/$ /$1 permanent;
-
-location / {
-    try_files $uri $uri/ /index.php?$query_string;
-}
-
-location = /favicon.ico { access_log off; log_not_found off; }
-location = /robots.txt  { access_log off; log_not_found off; }
-
-error_page 404 /index.php;
-
-location ~ \.php$ {
-    include /etc/nginx/fastcgi_params;
-
-    try_files $uri /index.php;
-    fastcgi_split_path_info ^(.+\.php)(/.+)$;
-    fastcgi_pass 127.0.0.1:9000;
-    fastcgi_index index.php;
-    fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
-    fastcgi_connect_timeout 300s;
-    fastcgi_read_timeout 600s;
-    proxy_read_timeout 600s;
-    proxy_send_timeout 600s;
-    client_max_body_size 120M;
-}
-EOF
-
-sudo bash -c 'cat > /etc/nginx/snippets/laravel.conf' << 'EOF'
-index index.php;
-
-charset utf-8;
-
-# Strip trailing slash
-rewrite ^/(.*)/$ /$1 permanent;
-
-location / {
-    try_files $uri $uri/ /index.php?$query_string;
-}
-
-location = /favicon.ico { access_log off; log_not_found off; }
-location = /robots.txt  { access_log off; log_not_found off; }
-
-error_page 404 /index.php;
-
-location ~ \.php$ {
-    include /etc/nginx/fastcgi_params;
-
-    try_files $uri /index.php;
-    fastcgi_split_path_info ^(.+\.php)(/.+)$;
-    fastcgi_pass 127.0.0.1:9000;
-    fastcgi_index index.php;
-    fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
-    fastcgi_connect_timeout 300s;
-    fastcgi_read_timeout 600s;
-    proxy_read_timeout 600s;
-    proxy_send_timeout 600s;
-    client_max_body_size 120M;
-}
-EOF
-
-sudo bash -c 'cat > /etc/nginx/snippets/ssl.conf' << 'EOF'
-ssl_dhparam /etc/nginx/dhparam.pem;
-
-ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-ssl_ciphers 'ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS';
-ssl_prefer_server_ciphers on;
-
-ssl_session_timeout 1d;
-ssl_session_cache shared:SSL:50m;
-ssl_session_tickets off;
-
-ssl_stapling on;
-ssl_stapling_verify on;
-resolver 8.8.8.8 8.8.4.4 valid=300s;
-resolver_timeout 30s;
-
-add_header Strict-Transport-Security "max-age=15768000; includeSubdomains; preload";
-add_header X-XSS-Protection "1; mode=block";
-add_header X-Frame-Options SAMEORIGIN;
-add_header X-Content-Type-Options nosniff;
-EOF
-
 echo "Configure php-fpm"
 sudo mkdir /etc/systemd/system/php8.0-fpm.service.d
-sudo chown -R $SYS_USER:$SYS_USER /etc/systemd/system/php8.0-fpm.service.d
+sudo chown -R $(whoami):$(whoami) /etc/systemd/system/php8.0-fpm.service.d
 
 printf "[Service]\nExecStartPost=/bin/sleep 0.1\nLimitNOFILE=1048576\n" > /etc/systemd/system/php8.0-fpm.service.d/override.conf
 
@@ -252,8 +138,8 @@ sudo systemctl daemon-reload
 
 sudo bash -c 'cat > /etc/php/8.0/fpm/pool.d/www.conf' << EOF
 [www]
-user = $SYS_USER
-group = $SYS_USER
+user = $(whoami)
+group = $(whoami)
 
 listen = 9000
 listen.backlog = 65536
@@ -282,15 +168,10 @@ php_admin_flag[log_errors] = on
 EOF
 
 sudo bash -c 'cat > /etc/php/8.0/fpm/conf.d/my.ini' << 'EOF'
-post_max_size = 128M
-upload_max_filesize = 128M
+post_max_size = 512M
+upload_max_filesize = 512M
 EOF
 
-sudo rm -f -R /var/www/html
-sudo mkdir -p /var/www
-sudo chown -R $SYS_USER:$SYS_USER /var/www
-
-echo "Allow http and https"
+echo "Allow http"
 sudo ufw allow proto tcp to 0.0.0.0/0 port 80
-sudo ufw allow proto tcp to 0.0.0.0/0 port 443
 
