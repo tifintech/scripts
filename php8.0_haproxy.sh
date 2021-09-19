@@ -172,6 +172,6 @@ post_max_size = 512M
 upload_max_filesize = 512M
 EOF
 
-echo "Allow http"
-sudo ufw allow proto tcp to 0.0.0.0/0 port 80
+echo "Allow private http"
+sudo ufw allow from 10.0.0.0/8 to any port 80
 
