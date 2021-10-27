@@ -284,6 +284,7 @@ EOF
 sudo bash -c 'cat > /etc/php/8.0/fpm/conf.d/my.ini' << 'EOF'
 post_max_size = 128M
 upload_max_filesize = 128M
+memory_limit = 1000M
 EOF
 
 sudo rm -f -R /var/www/html
