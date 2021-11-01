@@ -4,6 +4,9 @@ sudo add-apt-repository ppa:vbernat/haproxy-2.1 --yes
 sudo apt -y update
 sudo apt -y install haproxy
 
+echo "Create Delphi param"
+sudo openssl dhparam -out /etc/haproxy/dhparams.pem 2048
+
 sudo cp /etc/haproxy/haproxy.cfg{,.original}
 
 echo "Create default config"
