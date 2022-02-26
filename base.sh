@@ -1,5 +1,6 @@
 echo "Install, update & upgrade"
 sudo apt -y -q update
+sudo apt -y -q upgrade
 sudo apt -y -q install ufw fail2ban htop
 
 echo "Increase file limits"
