@@ -44,6 +44,8 @@ skip_name_resolve=1
 
 log_basename=db
 
+general_log=off
+
 log_error=/var/log/mysql/error.log
 
 slow_query_log=1
