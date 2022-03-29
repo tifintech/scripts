@@ -4,5 +4,7 @@ watch 'echo "show stat" | sudo nc -U /run/haproxy/admin.sock | cut -d "," -f 1,2
 
 Open stats to public
 
+sudo vi /etc/haproxy/haproxy.cfg
 Remove - stats admin if LOCALHOST
+
 sudo ufw allow proto tcp to 0.0.0.0/0 port 8404
