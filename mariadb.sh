@@ -72,6 +72,7 @@ innodb_log_file_size=$LOG_FILE_SIZE
 innodb_write_io_threads=$IO_THREADS
 innodb_read_io_threads=$IO_THREADS
 innodb_flush_log_at_trx_commit=2
+innodb_lock_wait_timeout=5
 innodb_rollback_on_timeout=1
 EOF
 
