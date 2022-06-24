@@ -64,6 +64,7 @@ sql-mode=NO_ENGINE_SUBSTITUTION
 
 max_connections=10000
 max_allowed_packet=1G
+wait_timeout=60
 
 ## INNODB
 
